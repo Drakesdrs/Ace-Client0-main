@@ -10,9 +10,9 @@ using Ace_client.Memory;
 
 namespace Ace_client.Main.ModuleSection.Modules
 {
-    public class Airjump : TickingModule
+    public class AirJump : TickingModule
     {
-        public Airjump() : base(Keys.G, "Movement")
+        public AirJump() : base(Keys.G, "Movement")
         {
 
         }

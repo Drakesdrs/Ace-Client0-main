@@ -36,9 +36,10 @@ namespace Ace_client.Main.ModuleSection
 
 
             /* Movement */
-            new Airjump();
+            new AirJump();
             new AutoSneak();
             new AutoWalk();
+            new AutoSprint();
             new BounceFly();
             new Freeze();
             new Fly();
