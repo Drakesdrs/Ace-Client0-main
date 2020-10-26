@@ -9,25 +9,15 @@ namespace Ace_client.Main.ModuleSection.Modules
 {
     public class Speed : Module
     {
-        float backupSpeed;
-        public float multiplier = 1.0f;
 
-        public unsafe Speed() : base("Movement")
+        public Speed() : base("Movement")
         {
-            fixed (float* m = &multiplier)
-            {
-                RegisterFloatSliderSetting("Speed", 0.2F, m, 5F);
-            }
+            
         }
 
         public override void onEnable()
         {
-           //savedSpeed = Minecraft.clientInstance.
-        }
-
-        public override void onDisable()
-        {
-            //Minecraft.clientInstance.localPlayer.
+            
         }
     }
 }

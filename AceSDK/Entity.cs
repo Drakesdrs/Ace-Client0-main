@@ -1,4 +1,5 @@
 ﻿using Ace_client.AceSDK;
+using Ace_client.Main.ModuleSection.Modules;
 using Ace_client.Memory;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace Ace_client.AceSDK
         public string name       => AceMCM.szRead   (address + 0x818);
         public string entityType => AceMCM.szPtrRead(address + 0x418);
 
+        public PropertyField<int>    onGround1;
         public PropertyField<bool>   onGround;
         public PropertyField<bool>   didEnterWaterBool;
         public PropertyField<bool>   hasTouchedDown;
@@ -22,7 +24,9 @@ namespace Ace_client.AceSDK
         public PropertyField<int>    isInWater;
         public PropertyField<int>    currentGamemode;
         public PropertyField<float>  fallDistance;
-       
+
+
+        public PropertyField<float>  speed;
         public PropertyField<float>  airAcceleration;
         public PropertyField<float>  web;
         public PropertyField<float>  stepHeight;
@@ -63,13 +67,14 @@ namespace Ace_client.AceSDK
         public Entity(ulong address): base(address)
         {
             onGround          = address + 0x1A0;
+            onGround1         = address + 0x1A0;
             hasTouchedDown    = address + 0x1A1;
             isCollidingSide   = address + 0x1A2;
             canFly            = address + 0x8C4;
             isFlying          = address + 0x8B8;
             currentGamemode   = address + 0x1C84;
             fallDistance      = address + 0x19C;
-            airAcceleration   = address + 0x308;
+            speed             = address + 0x304;
             stepHeight        = address + 0x200;
             isInWater         = address + 0x21D;
             ageInTicks        = address + 0x26C;

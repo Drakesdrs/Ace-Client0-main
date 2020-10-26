@@ -124,11 +124,14 @@
     <Compile Include="Main\ModuleSection\ModuleSettings\SliderSetting.cs" />
     <Compile Include="Main\ModuleSection\ModuleSettings\ToggleSetting.cs" />
     <Compile Include="Main\ModuleSection\Modules\AirAcceleration.cs" />
+    <Compile Include="Main\ModuleSection\Modules\AirControl.cs" />
     <Compile Include="Main\ModuleSection\Modules\AirJump.cs" />
     <Compile Include="Main\ModuleSection\Modules\AutoSneak.cs" />
     <Compile Include="Main\ModuleSection\Modules\AutoWalk.cs" />
+    <Compile Include="Main\ModuleSection\Modules\BoostHit.cs" />
     <Compile Include="Main\ModuleSection\Modules\BounceFly.cs" />
     <Compile Include="Main\ModuleSection\Modules\BunnyHop.cs" />
+    <Compile Include="Main\ModuleSection\Modules\HighJump.cs" />
     <Compile Include="Main\ModuleSection\Modules\Instabreak.cs" />
     <Compile Include="Main\ModuleSection\Modules\Jetpack.cs" />
     <Compile Include="Main\ModuleSection\Modules\Reach.cs" />

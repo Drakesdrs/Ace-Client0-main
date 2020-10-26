@@ -9,16 +9,16 @@ namespace Ace_client.Main.ModuleSection.Modules
 {
     public class AirAcceleration : TickingModule
     {
-        public float multiplier;
+        
 
-        public AirAcceleration() : base("Other")
+        public AirAcceleration() : base("Movement")
         {
 
         }
 
         public override void onTick()
         {
-            
+            Minecraft.clientInstance.localPlayer.airAcceleration = 10;
         }
     }
 }

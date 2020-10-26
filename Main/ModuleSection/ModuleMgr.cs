@@ -27,6 +27,7 @@ namespace Ace_client.Main.ModuleSection
             Logger.debug("Module registry begin...");
 
             /* Combat */
+            new BoostHit();
             new Reach();
             //new Killaura();
             //new Hitbox();
@@ -36,13 +37,17 @@ namespace Ace_client.Main.ModuleSection
 
 
             /* Movement */
+            //new AirAcceleration();
             new AirJump();
+            new AirControl();
             new AutoSneak();
             new AutoWalk();
             new AutoSprint();
             new BounceFly();
+            new BunnyHop();
             new Freeze();
             new Fly();
+            new HighJump();
             new NoFall();
             new NoWeb();
             new NoClip();
@@ -52,6 +57,7 @@ namespace Ace_client.Main.ModuleSection
             new Jesus();
             new Jetpack();
             new SafeWalk();
+            new Speed();
 
             /* Player */
            
