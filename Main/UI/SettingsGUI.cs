@@ -37,7 +37,7 @@ namespace Ace_client.Main.UI
 
                 e.Graphics.DrawString("Key", font_small, gradient, Program.UI.Width/2 - 196, 36);
                 OverlayMgr.FillRoundRectangle(e, lightborder, new Rectangle(Program.UI.Width/2 - 194, 36, 200, 34), 10, 10, 10, 10);
-                OverlayMgr.FillRoundRectangle(e, lightbackground, new Rectangle(Program.UI.Width/2 - 192, 48, 196, 30), 10, 10, 10, 10);
+                OverlayMgr.FillRoundRectangle(e, lightbackground, new Rectangle(Program.UI.Width/2 - 192, 48, 196, 30), 10, 10, 10, 10); //s
             }
         }
     }
