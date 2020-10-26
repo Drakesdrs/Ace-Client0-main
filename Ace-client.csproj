@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3B4E3AA3-A9CD-4C1B-98AC-2FBD310D5E53}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Ace_client</RootNamespace>
+    <AssemblyName>Ace-client</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>8.0</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>8.0</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Ace_client.Main.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Ace_4k.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AceSDK\Actor.cs" />
+    <Compile Include="AceSDK\ActorRenderDispatcher.cs" />
+    <Compile Include="AceSDK\ClientInstance.cs" />
+    <Compile Include="AceSDK\ContentCatalogService.cs" />
+    <Compile Include="AceSDK\Entity.cs" />
+    <Compile Include="AceSDK\Game.cs" />
+    <Compile Include="AceSDK\GameGraphics.cs" />
+    <Compile Include="AceSDK\Gamerule.cs" />
+    <Compile Include="AceSDK\GuiData.cs" />
+    <Compile Include="AceSDK\HitDetectSystem.cs" />
+    <Compile Include="AceSDK\HolographicPlatform.cs" />
+    <Compile Include="AceSDK\Inventory.cs" />
+    <Compile Include="AceSDK\Item.cs" />
+    <Compile Include="AceSDK\ItemInHandRenderer.cs" />
+    <Compile Include="AceSDK\ItemStack.cs" />
+    <Compile Include="AceSDK\Level.cs" />
+    <Compile Include="AceSDK\LocalPlayer.cs" />
+    <Compile Include="AceSDK\LoopbackPacketSender.cs" />
+    <Compile Include="AceSDK\Minecraft.cs" />
+    <Compile Include="AceSDK\NetworkHandler.cs" />
+    <Compile Include="AceSDK\PlayerAttributes.cs" />
+    <Compile Include="AceSDK\PlayerEntity.cs" />
+    <Compile Include="AceSDK\PlayerInventoryProxy.cs" />
+    <Compile Include="AceSDK\RakNetInstance.cs" />
+    <Compile Include="AceSDK\SceneStack.cs" />
+    <Compile Include="AceSDK\SDKHandler.cs" />
+    <Compile Include="AceSDK\TaskGroup.cs" />
+    <Compile Include="AceSDK\ToastManager.cs" />
+    <Compile Include="AceSDK\UIProfanityContext.cs" />
+    <Compile Include="AceSDK\UserAuthentication.cs" />
+    <Compile Include="AceSDK\Utils.cs" />
+    <Compile Include="AceSDK\VanillaMoveInputHandler.cs" />
+    <Compile Include="AceSDK\VanillaSceneFactory.cs" />
+    <Compile Include="AceSDK\VoiceSystem.cs" />
+    <Compile Include="Main\ActionSection\Action.cs" />
+    <Compile Include="Main\ActionSection\Actions.cs" />
+    <Compile Include="Main\ActionSection\DisableModuleAction.cs" />
+    <Compile Include="Main\ActionSection\EnableModuleAction.cs" />
+    <Compile Include="Main\CategorySection\Category.cs" />
+    <Compile Include="Main\CategorySection\CategoryHandler.cs" />
+    <Compile Include="Main\ImportantSection\Logger.cs" />
+    <Compile Include="Main\KeySection\Keybind.cs" />
+    <Compile Include="Main\ImportantSection\SaveFile.cs" />
+    <Compile Include="Main\ImportantSection\Savings.cs" />
+    <Compile Include="Main\KeySection\IKeyInputHandler.cs" />
+    <Compile Include="Main\KeySection\KeyHeldAction.cs" />
+    <Compile Include="Main\KeySection\KeyInputMgr.cs" />
+    <Compile Include="Main\ModuleSection\Module.cs" />
+    <Compile Include="Main\ModuleSection\ModuleMgr.cs" />
+    <Compile Include="Main\ModuleSection\ModuleSettings\SettingHelper.cs" />
+    <Compile Include="Main\ModuleSection\ModuleSettings\SliderFloatSetting.cs" />
+    <Compile Include="Main\ModuleSection\ModuleSettings\SliderSetting.cs" />
+    <Compile Include="Main\ModuleSection\ModuleSettings\ToggleSetting.cs" />
+    <Compile Include="Main\ModuleSection\Modules\AirAcceleration.cs" />
+    <Compile Include="Main\ModuleSection\Modules\AirJump.cs" />
+    <Compile Include="Main\ModuleSection\Modules\AutoSneak.cs" />
+    <Compile Include="Main\ModuleSection\Modules\AutoWalk.cs" />
+    <Compile Include="Main\ModuleSection\Modules\BounceFly.cs" />
+    <Compile Include="Main\ModuleSection\Modules\BunnyHop.cs" />
+    <Compile Include="Main\ModuleSection\Modules\Instabreak.cs" />
+    <Compile Include="Main\ModuleSection\Modules\Jetpack.cs" />
+    <Compile Include="Main\ModuleSection\Modules\Reach.cs" />
+    <Compile Include="Main\ModuleSection\Modules\SafeWalk.cs" />
+    <Compile Include="Main\ModuleSection\Modules\Freeze.cs" />
+    <Compile Include="Main\ModuleSection\Modules\Fly.cs" />
+    <Compile Include="Main\ModuleSection\Modules\Hitbox.cs" />
+    <Compile Include="Main\ModuleSection\Modules\IceWalk.cs" />
+    <Compile Include="Main\ModuleSection\Modules\Jesus.cs" />
+    <Compile Include="Main\ModuleSection\Modules\Killaura.cs" />
+    <Compile Include="Main\ModuleSection\Modules\MoonJump.cs" />
+    <Compile Include="Main\ModuleSection\Modules\NoClip.cs" />
+    <Compile Include="Main\ModuleSection\Modules\NoFall.cs" />
+    <Compile Include="Main\ModuleSection\Modules\NoFire.cs" />
+    <Compile Include="Main\ModuleSection\Modules\NoWeb.cs" />
+    <Compile Include="Main\ModuleSection\Modules\Phase.cs" />
+    <Compile Include="Main\ModuleSection\Modules\PlexPack.cs" />
+    <Compile Include="Main\ModuleSection\Modules\Tower.cs" />
+    <Compile Include="Main\ModuleSection\Modules\ShowCoords.cs" />
+    <Compile Include="Main\ModuleSection\Modules\Speed.cs" />
+    <Compile Include="Main\ModuleSection\Modules\TriggerBot.cs" />
+    <Compile Include="Main\UI\TabGUI.cs" />
+    <Compile Include="Main\ModuleSection\Modules\TestModule.cs" />
+    <Compile Include="Main\ModuleSection\Modules\Headless.cs" />
+    <Compile Include="Main\UI\SettingsGUI.cs" />
+    <Compile Include="Main\UI\OverlayMgr.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main\UI\VModule.cs" />
+    <Compile Include="Main\UI\WinHook.cs" />
+    <Compile Include="Memory\PropertyField.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Memory\AceMCM.cs" />
+    <Compile Include="Memory\Statics.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Ace_4k.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Main\UI\OverlayMgr.resx">
+      <DependentUpon>OverlayMgr.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
