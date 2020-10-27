@@ -39,7 +39,7 @@ namespace Ace_client.Main.ModuleSection
             /* Movement */
             //new AirAcceleration();
             new AirJump();
-            new AirControl();
+            new Control();
             new AutoSneak();
             new AutoWalk();
             new AutoSprint();
@@ -50,6 +50,7 @@ namespace Ace_client.Main.ModuleSection
             new HighJump();
             new NoFall();
             new NoWeb();
+            new NoSwing();
             new NoClip();
             new Phase();
             new MoonJump();

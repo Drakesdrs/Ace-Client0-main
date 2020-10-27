@@ -24,14 +24,11 @@ namespace Ace_client.Main.ModuleSection.Modules
             bool MovingLeft     = Minecraft.clientInstance.vanillaMoveInputHandler.isPressingLeft;
             bool MovingRight    = Minecraft.clientInstance.vanillaMoveInputHandler.isPressingRight;
 
-
-            if (Minecraft.clientInstance.localPlayer.onGround1 > 0)
+            if (Minecraft.clientInstance.localPlayer.onGround1 > 0 && (MovingForward || MovingBackward || MovingLeft || MovingRight))
             {
                 Minecraft.clientInstance.localPlayer.Velocity.Y = 0.3F;
                 Minecraft.clientInstance.localPlayer.onGround = 1;
             }
-
-
 
             if (MovingForward)
             {
@@ -76,8 +73,8 @@ namespace Ace_client.Main.ModuleSection.Modules
                 float calcYaw = (playerYaw) * ((float)Math.PI / 180F);
                 float calcPitch = (Minecraft.clientInstance.localPlayer.pitch) ^ -((float)Math.PI / 180f);
 
-                Minecraft.clientInstance.localPlayer.Velocity.X = (float)Math.Cos(calcYaw) * 1F;
-                Minecraft.clientInstance.localPlayer.Velocity.Z = (float)Math.Sin(calcYaw) * 1F;
+                Minecraft.clientInstance.localPlayer.Velocity.X = (float)Math.Cos(calcYaw) /2;
+                Minecraft.clientInstance.localPlayer.Velocity.Z = (float)Math.Sin(calcYaw) /2;
             }
             
 		}

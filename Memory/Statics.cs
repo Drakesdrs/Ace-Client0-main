@@ -89,7 +89,17 @@ namespace Ace_client.Memory
                 AceMCM.WriteBaseBytes(0x130A601, new byte[] { 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC });
             }
 
-            
+            // v1.16.40 - NoSwing
+            public static void NoSwingOn()
+            {
+                AceMCM.WriteBaseBytes(0x9567C4, new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90 });
+            }
+            public static void NoSwingOff()
+            {
+                AceMCM.WriteBaseBytes(0x9567C4, new byte[] { 0xC6, 0x83, 0x9C, 6, 0, 0, 1 });
+            }
+
+
 
             /*
             class ClientInstance - 1.16.40

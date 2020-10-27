@@ -19,6 +19,8 @@ namespace Ace_client.Main.UI
             : base(Keys.F12)
         { }
 
+        public bool isKeyChanging;
+
         public override void draw(LinearGradientBrush gradient, object sender, PaintEventArgs e)
         {
             if (this.enabled) 
@@ -36,8 +38,8 @@ namespace Ace_client.Main.UI
                 e.Graphics.DrawLine(selectedbackground_pen, Program.UI.Width/2 + 200, 32, Program.UI.Width/2 + TextRenderer.MeasureText("Settings", font).Width/2 + 10, 32);
 
                 e.Graphics.DrawString("Key", font_small, gradient, Program.UI.Width/2 - 196, 36);
-                OverlayMgr.FillRoundRectangle(e, lightborder, new Rectangle(Program.UI.Width/2 - 194, 36, 200, 34), 10, 10, 10, 10);
-                OverlayMgr.FillRoundRectangle(e, lightbackground, new Rectangle(Program.UI.Width/2 - 192, 48, 196, 30), 10, 10, 10, 10); //s
+                OverlayMgr.FillRoundRectangle(e, lightborder, new Rectangle(Program.UI.Width/2 - 190, 68, 150, 30), 5, 5, 5, 5);
+                OverlayMgr.FillRoundRectangle(e, lightbackground, new Rectangle(Program.UI.Width/2 - 188, 70, 146, 26), 5, 5, 5, 5); //s
             }
         }
     }

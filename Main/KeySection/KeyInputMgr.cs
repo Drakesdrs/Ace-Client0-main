@@ -16,6 +16,8 @@ using Ace_client.Main.ModuleSection.Modules;
 using Ace_client.Main.UI;
 
 using static Ace_client.Main.UI.TabGUI;
+using static Ace_client.Main.UI.SettingsGUI;
+using static Ace_client.Memory.AceMCM;
 
 namespace Ace_client.Main.KeySection
 {
@@ -25,56 +27,60 @@ namespace Ace_client.Main.KeySection
 
         public static KeysConverter KeysConverter = new KeysConverter();
         private const int WH_KEYBOARD_LL = 13;
+        private const int WH_MOUSE_LL = 14;
         private const int WM_KEYDOWN = 0x0100;
         private const int WM_KEYUP = 0x0101;
-        private static LowLevelKeyboardProc _proc = HookCallback;
-        private static IntPtr _hookID = IntPtr.Zero;
+        private const int WM_LBUTTONDOWN = 0x0201;
+        private const int WM_MOUSEMOVE = 0x0200;
+        private const int WM_LBUTTONUP = 0x0202;
+        private static HOOKPROC _kp = KeyboardHookCallback;
+        private static HOOKPROC _mp = MouseHookCallback;
+        private static IntPtr _hookID1 = IntPtr.Zero;
+        private static IntPtr _hookID2 = IntPtr.Zero;
 
         public static Thread keyInputHookThread;
 
         public static void Init()
         {
             Logger.debug("Starting key capture thread...");
-         
 
             keyInputHookThread = new Thread(() =>
             {
-                _hookID = SetHook(_proc);
+                _hookID1 = SetHook(WH_KEYBOARD_LL, _kp);
+                _hookID2 = SetHook(WH_MOUSE_LL, _mp);
                 Application.Run();
-                UnhookWindowsHookEx(_hookID);
+                UnhookWindowsHookEx(_hookID1);
+                UnhookWindowsHookEx(_hookID2);
             });
             keyInputHookThread.Start();
 
             Logger.debug("Success!");
-
-
-            
         }
 
-        private static IntPtr SetHook(LowLevelKeyboardProc proc)
+        private static IntPtr SetHook(int idHook, HOOKPROC proc)
         {
             using (Process curProcess = Process.GetCurrentProcess())
             using (ProcessModule curModule = curProcess.MainModule)
             {
-                return SetWindowsHookEx(WH_KEYBOARD_LL, proc,
+                return SetWindowsHookEx(idHook, proc,
                     GetModuleHandle(curModule.ModuleName), 0);
             }
         }
 
-        private delegate IntPtr LowLevelKeyboardProc(int nCode, IntPtr wParam, IntPtr lParam);
+        private delegate IntPtr HOOKPROC(int nCode, IntPtr wParam, IntPtr lParam);
 
         static Keys inPureHookCallback_K;
-        private static IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam)
+        private static IntPtr KeyboardHookCallback(int nCode, IntPtr wParam, IntPtr lParam)
         {
             if (nCode >= 0)
             {
-                if(wParam == (IntPtr)WM_KEYDOWN)
+                if (wParam == (IntPtr)WM_KEYDOWN)
                 {
                     int vkCode = Marshal.ReadInt32(lParam);
-                    inPureHookCallback_K = (Keys) vkCode;
+                    inPureHookCallback_K = (Keys)vkCode;
 
-                    if(tabGUI.enabled)
-                        switch(inPureHookCallback_K)
+                    if (tabGUI.enabled)
+                        switch (inPureHookCallback_K)
                         {
                             case Keys.Up:
 
@@ -108,20 +114,33 @@ namespace Ace_client.Main.KeySection
                                 ModuleMgr.registry.selectedModule = null;
                                 CategoryHandler.registry.isSelectedCategoryActive = false;
                                 break;
-                    }
-
-                    var cb = keybinds.ContainsKey(inPureHookCallback_K) ? keybinds[inPureHookCallback_K] : null;
-                    if (cb != null)
-                    {
-                        if (cb.key == inPureHookCallback_K)
-                        {
-                            cb.onKeyDown();
                         }
-                        else
+                    
+                    if(settingsGUI.enabled)
+                    {
+                        if(settingsGUI.isKeyChanging)
                         {
-                            Logger.writeLine("An error has occurred with one or more keybinds and their keys have been reset.");
-                            cb.key = Keys.None;
-                            keybinds[inPureHookCallback_K] = null;
+                            keybinds[ModuleMgr.registry.selectedModule.key] = null;
+                            ModuleMgr.registry.selectedModule.key = inPureHookCallback_K;
+                            keybinds[inPureHookCallback_K] = ModuleMgr.registry.selectedModule;
+                            settingsGUI.isKeyChanging = false;
+                        }
+                    }
+                    else
+                    {
+                        var cb = keybinds.ContainsKey(inPureHookCallback_K) ? keybinds[inPureHookCallback_K] : null;
+                        if (cb != null)
+                        {
+                            if (cb.key == inPureHookCallback_K)
+                            {
+                                cb.onKeyDown();
+                            }
+                            else
+                            {
+                                Logger.writeLine("An error has occurred with one or more keybinds and their keys have been reset.");
+                                cb.key = Keys.None;
+                                keybinds[inPureHookCallback_K] = null;
+                            }
                         }
                     }
 
@@ -130,7 +149,7 @@ namespace Ace_client.Main.KeySection
                         Program.UI.Refresh();
                     }));
                 }
-                else if(wParam == (IntPtr)WM_KEYUP)
+                else if (wParam == (IntPtr)WM_KEYUP)
                 {
                     var cb = keybinds.ContainsKey(inPureHookCallback_K) ? keybinds[inPureHookCallback_K] : null;
                     if (cb != null)
@@ -154,11 +173,91 @@ namespace Ace_client.Main.KeySection
                 }
             }
 
-            return CallNextHookEx(_hookID, nCode, wParam, lParam);
+            return CallNextHookEx(_hookID1, nCode, wParam, lParam);
+        }
+
+        public static bool mouseIsDown;
+
+        public static Keys LeftMouseButtonKey = Keys.F13;
+        public static Keys MouseMoveKey = Keys.F15;
+
+        private static IntPtr MouseHookCallback(int nCode, IntPtr wParam, IntPtr lParam)
+        {
+            if (wParam == (IntPtr)WM_LBUTTONDOWN)
+            {
+                var cb = keybinds.ContainsKey(LeftMouseButtonKey) ? keybinds[LeftMouseButtonKey] : null;
+                if (cb != null)
+                {
+                    if (cb.key == LeftMouseButtonKey)
+                    {
+                        cb.onKeyDown();
+                    }
+                    else
+                    {
+                        Logger.writeLine("An error has occurred with one or more keybinds and their keys have been reset.");
+                        cb.key = Keys.None;
+                        keybinds[LeftMouseButtonKey] = null;
+                    }
+                }
+                mouseIsDown = true;
+
+                if(settingsGUI.enabled)
+                {
+                    FOURSIDE thing = AceMCM.getMcRect();
+                    if (Cursor.Position.X > thing.Left + Program.UI.Width / 2 - 190 && Cursor.Position.X < thing.Right - Program.UI.Width / 2
+                    &&  Cursor.Position.Y > thing.Top  + 100                        && Cursor.Position.Y < thing.Top   + 130)
+                    {
+                        settingsGUI.isKeyChanging = true;
+                    }
+                }
+            }
+            else if (wParam == (IntPtr)WM_LBUTTONUP)
+            {
+                var cb = keybinds.ContainsKey(LeftMouseButtonKey) ? keybinds[LeftMouseButtonKey] : null;
+                if (cb != null)
+                {
+                    if (cb.key == LeftMouseButtonKey)
+                    {
+                        cb.onKeyUp();
+                    }
+                    else
+                    {
+                        Logger.writeLine("An error has occurred with one or more keybinds and their keys have been reset.");
+                        cb.key = Keys.None;
+                        keybinds[LeftMouseButtonKey] = null;
+                    }
+                }
+                mouseIsDown = false;
+            }
+            else if (wParam == (IntPtr)WM_MOUSEMOVE)
+            {
+                var cb = keybinds.ContainsKey(MouseMoveKey) ? keybinds[MouseMoveKey] : null;
+                if (cb != null)
+                {
+                    if (cb.key == MouseMoveKey)
+                    {
+                        cb.onKeyDown();
+                    }
+                    else
+                    {
+                        Logger.writeLine("An error has occurred with one or more keybinds and their keys have been reset.");
+                        cb.key = Keys.None;
+                        keybinds[MouseMoveKey] = null;
+                    }
+                }
+                if (mouseIsDown)
+                {
+                    //Logger.writeLine("gay ass bitchy titty ficky biddy nigger figger");
+
+                }
+            }
+
+
+            return CallNextHookEx(_hookID2, nCode, wParam, lParam);
         }
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        private static extern IntPtr SetWindowsHookEx(int idHook, LowLevelKeyboardProc lpfn, IntPtr hMod, uint dwThreadId);
+        private static extern IntPtr SetWindowsHookEx(int idHook, HOOKPROC lpfn, IntPtr hMod, uint dwThreadId);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]

@@ -34,7 +34,8 @@ namespace Ace_client.AceSDK
         public PropertyField<int>    timeOnDeathScreen;
         public PropertyField<int>    damageTime;
         public PropertyField<int>    movedTick;
-        
+
+        public PropertyField<int> swingData;
 
         public Vec3Field<float> Velocity;
 
@@ -81,8 +82,9 @@ namespace Ace_client.AceSDK
             timeOnDeathScreen = address + 0x6BC;
             damageTime        = address + 0x630;
             movedTick         = address + 0x304;
-            
-           
+
+            swingData         = address + 0x79C;
+
             web               = address + 0x214;
             
 
