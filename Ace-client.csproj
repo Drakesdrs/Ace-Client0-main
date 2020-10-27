@@ -120,7 +120,7 @@
     <Compile Include="Main\ModuleSection\Module.cs" />
     <Compile Include="Main\ModuleSection\ModuleMgr.cs" />
     <Compile Include="Main\ModuleSection\ModuleSettings\SettingHelper.cs" />
-    <Compile Include="Main\ModuleSection\ModuleSettings\SliderFloatSetting.cs" />
+    <Compile Include="Main\ModuleSection\ModuleSettings\SettingsValue.cs" />
     <Compile Include="Main\ModuleSection\ModuleSettings\SliderSetting.cs" />
     <Compile Include="Main\ModuleSection\ModuleSettings\ToggleSetting.cs" />
     <Compile Include="Main\ModuleSection\Modules\AirAcceleration.cs" />

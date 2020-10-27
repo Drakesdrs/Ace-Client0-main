@@ -8,11 +8,15 @@ using System.Windows.Forms;
 
 namespace Ace_client.Main.ModuleSection.Modules
 {
-    public class BunnyHop : TickingModule
+    public unsafe class BunnyHop : TickingModule
     {
-        public BunnyHop() : base("Movement")
+        public unsafe float speed = 0.5f;
+        public unsafe BunnyHop() : base("Movement")
         {
-
+            fixed(float* spd = &speed)
+            {
+                RegisterFloatSliderSetting("Speed", 0.0f, spd, 4f);
+            }
         }
 
         public override void onTick()
@@ -73,7 +77,7 @@ namespace Ace_client.Main.ModuleSection.Modules
                 float calcYaw = (playerYaw) * ((float)Math.PI / 180F);
                 float calcPitch = (Minecraft.clientInstance.localPlayer.pitch) ^ -((float)Math.PI / 180f);
 
-                Minecraft.clientInstance.localPlayer.Velocity.X = (float)Math.Cos(calcYaw) /2;
+                Minecraft.clientInstance.localPlayer.Velocity.X = (float)Math.Cos(calcYaw) * ;
                 Minecraft.clientInstance.localPlayer.Velocity.Z = (float)Math.Sin(calcYaw) /2;
             }
             

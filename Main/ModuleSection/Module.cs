@@ -119,21 +119,23 @@ namespace Ace_client.Main.ModuleSection
         public List<ToggleSetting> toggleSettings = new List<ToggleSetting>();
         public List<SliderSetting> sliderSettings = new List<SliderSetting>();
 
-        public List<SliderFloatSetting> sliderFloatSettings = new List<SliderFloatSetting>();
-
         public void RegToggleSettings(string text, bool value) //Same
         {
             toggleSettings.Add(new ToggleSetting(text, value));
         }
 
-        public unsafe void RegisterSliderSetting(string text, int min, int* value, int max)
+        public unsafe void RegisterIntSliderSetting(string text, int min, int* value, int max)
         {
-            sliderSettings.Add(new SliderSetting(text, min, value, max));
+            int minc = min;
+            int maxc = max;
+            sliderSettings.Add(new SliderSetting(text, new SettingsValue(&minc), new SettingsValue(value), new SettingsValue(&maxc)));
         }
 
         public unsafe void RegisterFloatSliderSetting(string text, float min, float* value, float max)
         {
-            sliderFloatSettings.Add(new SliderFloatSetting(text, min, value, max));
+            float minc = min;
+            float maxc = max;
+            sliderSettings.Add(new SliderSetting(text, new SettingsValue(&minc), new SettingsValue(value), new SettingsValue(&maxc)));
         }
     }
     public abstract class TickingModule : Module
