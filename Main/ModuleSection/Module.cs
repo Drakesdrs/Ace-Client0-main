@@ -106,12 +106,6 @@ namespace Ace_client.Main.ModuleSection
         public virtual void onEnable () { }
         public virtual void onDisable() { }
 
-        public List<ToggleSetting> toggleSettings = new List<ToggleSetting>();
-        public void RegToggleSettings(string text, bool value) //Same
-        {
-            toggleSettings.Add(new ToggleSetting(text, value));
-        }
-
         public override void onKeyDown()
         {
             this.toggle();
@@ -122,9 +116,15 @@ namespace Ace_client.Main.ModuleSection
             
         }
 
+        public List<ToggleSetting> toggleSettings = new List<ToggleSetting>();
         public List<SliderSetting> sliderSettings = new List<SliderSetting>();
 
         public List<SliderFloatSetting> sliderFloatSettings = new List<SliderFloatSetting>();
+
+        public void RegToggleSettings(string text, bool value) //Same
+        {
+            toggleSettings.Add(new ToggleSetting(text, value));
+        }
 
         public unsafe void RegisterSliderSetting(string text, int min, int* value, int max)
         {

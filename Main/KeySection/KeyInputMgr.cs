@@ -89,7 +89,7 @@ namespace Ace_client.Main.KeySection
                                 else
                                     CategoryHandler.registry.selectPreviousCategory();
 
-                                break;
+                                goto quit;
                             case Keys.Down:
 
                                 if (CategoryHandler.registry.isSelectedCategoryActive)
@@ -97,7 +97,7 @@ namespace Ace_client.Main.KeySection
                                 else
                                     CategoryHandler.registry.selectNextCategory();
 
-                                break;
+                                goto quit;
                             case Keys.Right:
                                 if (CategoryHandler.registry.isSelectedCategoryActive)
                                     ModuleMgr.registry.selectedModule.toggle();
@@ -109,20 +109,30 @@ namespace Ace_client.Main.KeySection
                                     else
                                         CategoryHandler.registry.isSelectedCategoryActive = false;
                                 }
-                                break;
+                                goto quit;
                             case Keys.Left:
                                 ModuleMgr.registry.selectedModule = null;
                                 CategoryHandler.registry.isSelectedCategoryActive = false;
-                                break;
+                                goto quit;
                         }
                     
-                    if(settingsGUI.enabled)
+                    if(settingsGUI.enabled && inPureHookCallback_K != settingsGUI.key)
                     {
                         if(settingsGUI.isKeyChanging)
                         {
-                            keybinds[ModuleMgr.registry.selectedModule.key] = null;
-                            ModuleMgr.registry.selectedModule.key = inPureHookCallback_K;
-                            keybinds[inPureHookCallback_K] = ModuleMgr.registry.selectedModule;
+                            if (inPureHookCallback_K == Keys.Escape)
+                            {
+                                keybinds.Remove(ModuleMgr.registry.selectedModule.key);
+                                ModuleMgr.registry.selectedModule.key = Keys.None;
+                            }
+                            else
+                            {
+                                if (keybinds.ContainsKey(inPureHookCallback_K))
+                                    keybinds[inPureHookCallback_K].key = Keys.None;
+                                keybinds.Remove(ModuleMgr.registry.selectedModule.key);
+                                ModuleMgr.registry.selectedModule.key = inPureHookCallback_K;
+                                keybinds[inPureHookCallback_K] = ModuleMgr.registry.selectedModule;
+                            }
                             settingsGUI.isKeyChanging = false;
                         }
                     }
@@ -139,7 +149,7 @@ namespace Ace_client.Main.KeySection
                             {
                                 Logger.writeLine("An error has occurred with one or more keybinds and their keys have been reset.");
                                 cb.key = Keys.None;
-                                keybinds[inPureHookCallback_K] = null;
+                                keybinds.Remove(inPureHookCallback_K);
                             }
                         }
                     }
@@ -162,7 +172,7 @@ namespace Ace_client.Main.KeySection
                         {
                             Logger.writeLine("An error has occurred with one or more keybinds and their keys have been reset.");
                             cb.key = Keys.None;
-                            keybinds[inPureHookCallback_K] = null;
+                            keybinds.Remove(inPureHookCallback_K);
                         }
                     }
 
@@ -173,6 +183,7 @@ namespace Ace_client.Main.KeySection
                 }
             }
 
+            quit:
             return CallNextHookEx(_hookID1, nCode, wParam, lParam);
         }
 
@@ -196,7 +207,7 @@ namespace Ace_client.Main.KeySection
                     {
                         Logger.writeLine("An error has occurred with one or more keybinds and their keys have been reset.");
                         cb.key = Keys.None;
-                        keybinds[LeftMouseButtonKey] = null;
+                        keybinds.Remove(LeftMouseButtonKey);
                     }
                 }
                 mouseIsDown = true;
@@ -208,6 +219,11 @@ namespace Ace_client.Main.KeySection
                     &&  Cursor.Position.Y > thing.Top  + 100                        && Cursor.Position.Y < thing.Top   + 130)
                     {
                         settingsGUI.isKeyChanging = true;
+
+                        Program.UI.Invoke((System.Action)(() =>
+                        {
+                            Program.UI.Refresh();
+                        }));
                     }
                 }
             }
@@ -224,7 +240,7 @@ namespace Ace_client.Main.KeySection
                     {
                         Logger.writeLine("An error has occurred with one or more keybinds and their keys have been reset.");
                         cb.key = Keys.None;
-                        keybinds[LeftMouseButtonKey] = null;
+                        keybinds.Remove(LeftMouseButtonKey);
                     }
                 }
                 mouseIsDown = false;
@@ -242,13 +258,14 @@ namespace Ace_client.Main.KeySection
                     {
                         Logger.writeLine("An error has occurred with one or more keybinds and their keys have been reset.");
                         cb.key = Keys.None;
-                        keybinds[MouseMoveKey] = null;
+                        keybinds.Remove(MouseMoveKey);
                     }
                 }
                 if (mouseIsDown)
                 {
                     //Logger.writeLine("gay ass bitchy titty ficky biddy nigger figger");
 
+                    
                 }
             }
 
